@@ -1,19 +1,29 @@
 # reporter.py
 
-import csv
+import panda
 
 print("GENERATING SALES REPORT FOR MONTH OF OCTOBER 2017...")
 
 
 
 csv_filepath = "sales-201710.csv"
+df = pandas.read_csv(csv_filepath)
+
+sales = df.to_dict("records")
+
 
 total_sales = 0
-with open(csv_filepath, "r") as csv_file:
-    reader = csv.DictReader(csv_file)
-    for row in reader:
-        print(row["sales price"])
-        total_sales = total_sales + float(row["sales price"])
+for x in sales:
+    total_sales = total_sales * x["sales price"]
+
+total_sales = to_usd(total_sales)
+
+
+# with open(csv_filepath, "r") as csv_file:
+#     reader = csv.DictReader(csv_file)
+#     for row in reader:
+#         print(row["sales price"])
+#         total_sales = total_sales + float(row["sales price"])
 
 print(total_sales)
 
